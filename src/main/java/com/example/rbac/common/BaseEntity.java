@@ -1,4 +1,4 @@
-package com.example.rbac;
+package com.example.rbac.common;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
