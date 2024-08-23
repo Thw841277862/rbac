@@ -2,9 +2,12 @@ package com.example.rbac.sys.convert;
 
 import com.example.rbac.sys.entity.SysMenu;
 import com.example.rbac.sys.req.MenuReq;
+import com.example.rbac.sys.resp.MenuResp;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+
+import java.util.List;
 
 /**
  * TODO
@@ -20,4 +23,11 @@ public interface MenuConvert {
             @Mapping(target = "name", source = "componentName")
     })
     SysMenu toEntity(MenuReq menuReq);
+    @Mappings({
+            @Mapping(source = "menuId", target = "id"),
+            @Mapping(source = "name", target = "componentName")
+    })
+    MenuResp toResp(SysMenu sysMenu);
+
+    List<MenuResp> toRespList(List<SysMenu> sysMenus);
 }
