@@ -2,6 +2,9 @@ package com.example.rbac.sys.service;
 
 import com.example.rbac.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.rbac.sys.req.MenuReq;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -12,5 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-08-18
  */
 public interface ISysMenuService extends IService<SysMenu> {
+    void create(MenuReq menuReq);
 
+    void update(MenuReq menuReq);
+
+    void delete(Set<Long> ids);
 }
