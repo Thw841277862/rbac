@@ -2,4 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.rbac.sys.mapper.SysUserMapper">
 
+    <select id="queryAll" resultType="com.example.rbac.sys.entity.SysUser">
+        select u.*
+
+        from sys_user u join sys_dept d
+        on u.dept_id = d.dept_id
+        <where>
+            <if test="req.deptIds != null and req.deptIds.size > 0">
+                g.code in
+                <foreach item="code" collection="goodsCodes" separator="," open="(" close=")" index="">
+                    #{code}
+                </foreach>
+            </if>
+            <if test="req.name != null and req.name != ''">
+                and g.name like concat("%",#{req.name},"%")
+            </if>
+            <if test="req.shopCode != null  and req.shopCode != ''">
+                and g.shop_code = #{req.shopCode}
+            </if>
+            <if test="req.goodsChildName != null and req.goodsChildName != ''">
+                and c.goods_child_name like concat("%",#{req.goodsChildName},"%")
+            </if>
+            <if test="req.goodsChildCode != null  and req.goodsChildCode != ''">
+                and c.goods_child_code = #{req.goodsChildCode}
+            </if>
+            <if test="req.type != null and req.type != ''">
+                and g.type = #{req.type}
+            </if>
+            <if test="req.status != null  and req.status != ''">
+                and c.status = #{req.status}
+            </if>
+            <if test="req.productName != null  and req.productName != ''">
+                and p.name like concat("%",#{req.productName},"%")
+            </if>
+            order by g.create_time desc
+        </where>
+    </select>
 </mapper>

@@ -30,4 +30,8 @@ public interface ISysDeptService extends IService<SysDept> {
     List<DepResp> getDeptSuperior(Long id);
 
     PageData<DepResp> queryDept(DeptQueryCriteriaReq req);
+
+    List<SysDept> findByPid(Long pid);
+
+    List<Long> getDeptChildren(List<SysDept> deptList);
 }

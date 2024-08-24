@@ -128,6 +128,27 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         return new PageData(total, deptConvert.toRespList(page.getRecords()));
     }
 
+    @Override
+    public List<SysDept> findByPid(Long pid) {
+        LambdaUpdateWrapper<SysDept> wrapper = Wrappers.<SysDept>lambdaUpdate().eq(SysDept::getPid, pid);
+        return list(wrapper);
+    }
+
+    @Override
+    public List<Long> getDeptChildren(List<SysDept> deptList) {
+        List<Long> list = new ArrayList<>();
+        deptList.forEach(dept -> {
+            if (dept.getEnabled()) {
+                List<SysDept> depts = findByPid(dept.getDeptId());
+                if (ObjectUtil.isNotEmpty(depts)) {
+                    list.addAll(getDeptChildren(depts));
+                }
+                list.add(dept.getDeptId());
+            }
+        });
+        return list;
+    }
+
     public List<SysDept> getSuperior(SysDept sysDept, List<SysDept> sysDeptList) {
         if (null == sysDept) {
             return sysDeptList;

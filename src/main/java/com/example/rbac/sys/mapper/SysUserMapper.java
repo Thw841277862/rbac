@@ -1,7 +1,9 @@
 package com.example.rbac.sys.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.rbac.sys.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.rbac.sys.req.UserQueryCriteriaReq;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -25,4 +27,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     @Select("SELECT count(*) FROM sys_user u, sys_users_jobs j WHERE u.user_id = j.user_id AND j.job_id IN  #{jobIds}")
     int countByJobs(@Param("jobIds") Set<Long> jobIds);
+
+    IPage<SysUser> queryAll(IPage<?> page, @Param("req") UserQueryCriteriaReq req);
+
 }

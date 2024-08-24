@@ -29,4 +29,13 @@ public interface SysUsersRolesMapper extends BaseMapper<SysUsersRoles> {
     @Select(value = "SELECT r.* FROM sys_role r, sys_users_roles u WHERE " +
             "r.role_id = u.role_id AND u.user_id = #{id}")
     List<SysRole> findByUserId(@Param("id") Long id);
+
+    /**
+     * 根据角色查询
+     * @param ids /
+     * @return /
+     */
+    @Select(value = "SELECT count(*) FROM sys_user u, sys_users_roles r WHERE " +
+            "u.user_id = r.user_id AND r.role_id in #{ids}")
+    int countByRoles(@Param("ids") Set<Long> ids);
 }
