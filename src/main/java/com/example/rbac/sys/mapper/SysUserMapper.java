@@ -28,6 +28,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     @Select("SELECT count(*) FROM sys_user u, sys_users_jobs j WHERE u.user_id = j.user_id AND j.job_id IN  #{jobIds}")
     int countByJobs(@Param("jobIds") Set<Long> jobIds);
 
-    IPage<SysUser> queryAll(IPage<?> page, @Param("req") UserQueryCriteriaReq req);
+//    IPage<SysUser> queryAll(IPage<?> page, @Param("req") UserQueryCriteriaReq req);
 
 }
